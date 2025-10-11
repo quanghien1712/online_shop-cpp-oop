@@ -3,7 +3,8 @@
 
 #include<string>
 
-// Github Copilot
+// test conflict;
+
 class Product{
     private: 
         std::string name;
