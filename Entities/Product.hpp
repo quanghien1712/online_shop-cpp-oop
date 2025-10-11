@@ -3,7 +3,7 @@
 
 #include<string>
 
-
+// Github Copilot
 class Product{
     private: 
         std::string name;
