@@ -3,7 +3,7 @@
 
 #include<string>
 
-// test pull
+
 class Product{
     private: 
         std::string name;
