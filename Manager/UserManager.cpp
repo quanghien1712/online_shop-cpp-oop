@@ -33,7 +33,7 @@ void UserManager::loadUserFromFile(const std::string& filename){
     while(std::getline(input,line)){
         std::stringstream ss(line);
         std::string role;ss>>role;
-        std::string username;ss>>role;
+        std::string username;ss>>username;
         std::string password;ss>>password;
         if(role=="Customer") addUser(std::make_unique<Customer>(username,password)); 
     }
