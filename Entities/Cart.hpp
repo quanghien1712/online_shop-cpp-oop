@@ -10,8 +10,8 @@ class Cart{
     private:
         std::vector<Product> cart;
         double total;
+        void updatetotal(double price,int quantity);
     public:
-        void updatetotal(int price,int quantity);
         double gettotal()const;
         Product* findProductbyName(const std::string& productName);
         void addToCart(int ProductId,int quantity,ProductManager& productManager);
