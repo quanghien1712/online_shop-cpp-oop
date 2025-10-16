@@ -6,7 +6,7 @@ Order::Order(const std::string& customername, const std::vector<Product>& items,
     customername(customername),OrderItems(items),total(total),status(status)
 {}
 
-const std::string Order::getCustomerName()const{
+const std::string& Order::getCustomerName()const{
     return customername;
 }
 

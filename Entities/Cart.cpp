@@ -4,7 +4,7 @@
 
 
 
-void Cart::updatetotal(int price,int delta) {
+void Cart::updatetotal(double price,int delta) {
     total+=delta*price;
 }
 
