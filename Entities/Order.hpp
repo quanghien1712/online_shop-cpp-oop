@@ -27,7 +27,7 @@ class Order{
         OrderStatus status;
     public:
         Order(const std::string& customername,const std::vector<Product>& items,double total,OrderStatus status=OrderStatus::Pending);
-        const std::string getCustomerName() const;
+        const std::string& getCustomerName() const;
         void setStatus(OrderStatus s);
         OrderStatus getOrderStatus() const;
         const std::vector<Product>& getOrderItems() const;
