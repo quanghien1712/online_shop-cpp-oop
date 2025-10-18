@@ -22,23 +22,22 @@ Product* Cart::findProductbyName(const std::string& productName){
 }
 
 
-void Cart::addToCart(int ProductId,int quantity,ProductManager& productManager){
-    Product* storeProduct=productManager.findProductbyId(ProductId);
-    Product* cartProduct=findProductbyName(storeProduct->getName());
+void Cart::addToCart(const Product& storeProduct,int quantity){
+    Product* cartProduct=findProductbyName(storeProduct.getName());
     if(cartProduct==nullptr){
-        if(quantity>storeProduct->getQuantity()){
+        if(!storeProduct.hasStock(quantity)){
             throw InvalidProductException("Not enough stock available");
         }
-        cart.emplace_back(storeProduct->getName(),quantity,storeProduct->getPrice());
+        cart.emplace_back(storeProduct.getName(),quantity,storeProduct.getPrice());
     }
     else{
         int currentQuantity=cartProduct->getQuantity();
-        if(storeProduct->hasStock(currentQuantity+quantity)){
+        if(storeProduct.hasStock(currentQuantity+quantity)){
             cartProduct->addStock(quantity);
         }
         else throw InvalidProductException("Not enough stock available");
     }
-    updatetotal(storeProduct->getPrice(),quantity);
+    updatetotal(storeProduct.getPrice(),quantity);
 }
 
 void Cart::removefromCart(int CartId,int quantity){

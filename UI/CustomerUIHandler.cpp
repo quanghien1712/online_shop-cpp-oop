@@ -68,8 +68,9 @@ void CustomerUIHandler::handleShoppingMenu(Customer* customer,ProductManager& pr
                     int prodId=Util::getValidatedNumberInput<int>(-1,(int)productCatalogue.size()-1);
                     std::cout<<"Enter product's quantity to buy: ";
                     int quantity=Util::getValidatedNumberInput<int>(0);
+                    const Product& storeProduct=*productManager.findProductbyId(prodId);
                     try{
-                        customer->getCart()->addToCart(prodId,quantity,productManager);
+                        customer->getCart()->addToCart(storeProduct,quantity);
                         std::cout<<"Product's successfully added"<<std::endl;
                     }
                     catch(const InvalidProductException& e){
