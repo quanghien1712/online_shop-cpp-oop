@@ -18,7 +18,7 @@ class User{
         const std::string& getUsername() const{
             return username;
         }
-        const std::string& getpassword() const{
+        const std::string& getHashPass() const{
             return password;
         }
         const std::string& getRole() const{

@@ -4,6 +4,7 @@
 #include "Entities/User.hpp"
 #include<vector>
 #include<memory>
+class OrderManager;
 
 class UserManager{
     private:
@@ -13,6 +14,7 @@ class UserManager{
         User* findUser(const std::string& username);
         void loadUserFromFile(const std::string& filename);
         void saveUserToFile(const std::string& filename);
+        void linkOrdertoCustomer(OrderManager& orderManager);
 };
 
 #endif

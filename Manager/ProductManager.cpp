@@ -44,7 +44,7 @@ void ProductManager::loadProductsFromFile(const std::string& filename){
     std::string line;
     while(std::getline(input,line)){
         std::stringstream ss(line);
-        std::string productname;ss>>productname;
+        std::string productname;std::getline(ss,productname,',');
         double price;ss>>price;
         int quantity;ss>>quantity;
         addProduct(productname,price,quantity);
@@ -56,7 +56,7 @@ void ProductManager::saveProductsToFile(const std::string& filename){
     std::ofstream output(filename);
     if(!output) return;
     for(const auto& product:productList){
-        output<<product.getName()<<" "<<product.getPrice()<<" "<<product.getQuantity()<<"\n";
+        output<<product.getName()<<","<<product.getPrice()<<" "<<product.getQuantity()<<"\n";
     }
     output.close(); 
 }

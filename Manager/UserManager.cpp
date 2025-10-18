@@ -1,6 +1,7 @@
 #include "UserManager.hpp"
 #include "Entities/Customer.hpp"
 #include "Entities/Admin.hpp"
+#include "OrderManager.hpp"
 #include<fstream>
 #include<sstream>
 
@@ -21,7 +22,7 @@ void UserManager::saveUserToFile(const std::string& filename){
     std::ofstream output(filename);
     if(!output) return;
     for(auto& user:userList){
-        output<<user->getRole()<<" "<<user->getUsername()<<" "<<user->getpassword()<<'\n';
+        output<<user->getRole()<<" "<<user->getUsername()<<","<<user->getHashPass()<<'\n';
     }
     output.close();
 }
@@ -33,9 +34,20 @@ void UserManager::loadUserFromFile(const std::string& filename){
     while(std::getline(input,line)){
         std::stringstream ss(line);
         std::string role;ss>>role;
-        std::string username;ss>>username;
+        ss.ignore();
+        std::string username;std::getline(ss,username,',');
         std::string password;ss>>password;
         if(role=="Customer") addUser(std::make_unique<Customer>(username,password)); 
     }
     input.close();
+}
+
+void UserManager::linkOrdertoCustomer(OrderManager& orderManager){
+    for(auto& user:userList){
+        if(user->getRole()=="Customer"){
+            Customer* customer=dynamic_cast<Customer*>(user.get());
+            const std::vector<Order*>& orderHistory=orderManager.findOrderbyName(customer->getUsername());
+            customer->setOrderHistory(orderHistory);
+        }
+    }
 }

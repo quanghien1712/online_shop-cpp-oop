@@ -49,9 +49,9 @@ void OrderManager::saveOrderToFile(const std::string& filename){
     if(!output) return;
     for(auto& order:orderList){
         const std::vector<Product>& items=order->getOrderItems();
-        output<<order->getCustomerName()<<" "<<order->gettotal()<<" "<<(int)order->getOrderStatus()<<" "<<items.size()<<'\n';
+        output<<order->getCustomerName()<<","<<order->gettotal()<<" "<<(int)order->getOrderStatus()<<" "<<items.size()<<'\n';
         for(const auto& product:items){
-            output<<product.getName()<<" "<<product.getPrice()<<" "<<product.getQuantity()<<'\n';
+            output<<product.getName()<<","<<product.getPrice()<<" "<<product.getQuantity()<<'\n';
         }
     }
     output.close();
@@ -64,7 +64,7 @@ void OrderManager::loadOrderFromFile(const std::string& filename){
     std::string line;
     while(std::getline(input,line)){
         std::stringstream ss(line);
-        std::string customerName;ss>>customerName;
+        std::string customerName;std::getline(ss,customerName,',');
         double total;ss>>total;
         int statusInt;ss>>statusInt;
         OrderStatus status=static_cast<OrderStatus> (statusInt);
@@ -73,7 +73,7 @@ void OrderManager::loadOrderFromFile(const std::string& filename){
         for(int i=1;i<=itemSize;++i){
             std::getline(input,line);
             std::stringstream ss(line);
-            std::string productname;ss>>productname;
+            std::string productname;std::getline(ss,productname,',');
             double price;ss>>price;
             int quantity;ss>>quantity;
             items.emplace_back(productname,quantity,price);

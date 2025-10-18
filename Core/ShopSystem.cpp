@@ -9,6 +9,8 @@ ShopSystem::ShopSystem():
     initializeDefaultAdmin();
     productManager->loadProductsFromFile("ProductList.txt");
     orderManager->loadOrderFromFile("OrderList.txt");
+    userManager->loadUserFromFile("User.txt");
+    userManager->linkOrdertoCustomer(*orderManager);
 }
 
 void ShopSystem::initializeDefaultAdmin(){
@@ -30,4 +32,5 @@ UserManager& ShopSystem::getUserManager(){
 ShopSystem::~ShopSystem(){
     productManager->saveProductsToFile("ProductList.txt");
     orderManager->saveOrderToFile("OrderList.txt");
+    userManager->saveUserToFile("User.txt");
 }
